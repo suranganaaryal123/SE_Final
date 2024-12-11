@@ -1,40 +1,122 @@
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@400;500;700&display=swap');
+
+/* General App Styles */
+body {
+  font-family: 'DM Sans', sans-serif; /* Secondary font for body content */
+  margin: 0;
+  padding: 0;
+  background: #FFE8E8; /* Light blush pink */
+  color: #333;
+}
+
 .App {
-  color: #282c34;
-  width: 60%;
-  margin: auto;
+  background: #FFF5E1; /* Warm cream */
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  margin: 40px auto;
+  padding: 20px;
+  max-width: 800px;
+  text-align: center;
+  font-family: 'DM Sans', sans-serif; /* Secondary font for body content */
 }
 
-/* .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Headings */
+h2 {
+  font-family: 'Cormorant Garamond', serif; /* Primary font for headings */
+  font-size: 2.5rem;
+  color: #000000; /* Rose pink */
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Buttons */
+button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 12px 24px;
+  border: 2px solid #F4A9A8; /* Rose pink border */
+  border-radius: 25px;
+  background: #000000; /* Black background */
+  color: #FFFFFF; /* White text */
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+button:hover {
+  background: #FFFFFF; /* White background on hover */
+  color: #000000; /* Black text on hover */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.App-link {
-  color: #61dafb;
+button:active {
+  background: #F4A9A8; /* Rose pink background on click */
+  color: #FFFFFF; /* White text on click */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(1px); /* Subtle press effect */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+/* Leaderboard */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  font-family: 'DM Sans', sans-serif; /* Secondary font for leaderboard items */
+}
+
+ul li {
+  background: #FFF5E1; /* Warm cream for a cohesive look */
+  margin: 5px 0; /* Reduce spacing between items */
+  padding: 10px 15px; /* Smaller padding for a compact look */
+  border-radius: 8px; /* Slightly rounded corners for a polished style */
+  border: 1px solid #D9A8F4; /* Soft lavender border for subtle definition */
+  color: #333; /* Dark text for readability */
+  font-size: 1rem; /* Smaller font size for compact boxes */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+ul li:hover {
+  transform: scale(1.03); /* Slight enlargement on hover */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+  background: #F4A9A8; /* Rose pink background on hover */
+  color: #FFFFFF; /* White text on hover for contrast */
+}
+
+/* First Place (Gold) */
+ul li:first-child {
+  background: linear-gradient(135deg, #FFD700, #FFC700); /* Gold gradient */
+  color: #FFFFFF; /* White text for contrast */
+  font-weight: bold;
+  border: 2px solid #FFB800; /* Golden border */
+  box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3); /* Golden glow */
+}
+
+/* Second Place (Silver) */
+ul li:nth-child(2) {
+  background: linear-gradient(135deg, #C0C0C0, #B0B0B0); /* Silver gradient */
+  color: #FFFFFF; /* White text for contrast */
+  font-weight: bold;
+  border: 2px solid #A0A0A0; /* Silver border */
+  box-shadow: 0 4px 8px rgba(192, 192, 192, 0.3); /* Silver glow */
+}
+
+
+/* Game Board */
+#board div {
+  font-family: 'Cormorant Garamond', serif; /* Primary font for game tiles */
+  background: #FFF5E1; /* Warm cream */
+  border: 2px solid #F4A9A8; /* Rose pink */
+  color: #F4A9A8;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}

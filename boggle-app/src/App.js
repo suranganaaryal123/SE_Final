@@ -6,7 +6,7 @@ import FoundSolutions from './components/FoundSolutions.js';
 import SummaryResults from './components/SummaryResults.js';
 import ToggleGameState from './components/ToggleGameState.js';
 import { LoginButton, LogoutButton } from './Authentication.js';
-import logo from './logo.svg';
+import logo from './boggle.png';
 import './App.css';
 import { GAME_STATE } from './components/GameState.js';
 

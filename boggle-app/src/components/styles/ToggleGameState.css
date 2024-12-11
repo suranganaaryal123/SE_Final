@@ -1,0 +1,37 @@
+/* .Toggle-game-state {
+  text-align: center;
+  margin-top: -50pt;
+  margin-bottom: 25pt;
+}
+
+.Input-select-size {
+  margin-top: -28.4pt;
+  margin-left: 200pt;
+  margin-bottom: 25pt;
+} */
+
+.Toggle-game-state {
+  text-align: center;
+  margin-top: 20px;  /* Adjusted margin for better positioning */
+  margin-bottom: 25px;
+}
+
+.Input-select-size {
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+/* Add responsiveness to grid */
+@media (max-width: 768px) {
+  .Board-div {
+    width: 100%;
+  }
+
+  .Tile {
+    font-size: 12pt; /* Adjusted font size on smaller screens */
+  }
+  .Guess-input {
+    width: 100%;
+    max-width: 350px; /* Max width adjusted for smaller screens */
+  }
+}

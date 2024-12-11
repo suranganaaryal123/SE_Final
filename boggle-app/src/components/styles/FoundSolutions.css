@@ -1,0 +1,28 @@
+/* .Found-solutions-list {
+  text-align: center;
+  margin: 25pt;
+}
+
+.Found-solutions-list ul {
+  list-style-type: none;
+}
+
+.Found-solutions-list li {
+  font-size: 14pt;
+  line-height: 20pt;
+} */
+.Found-solutions-list {
+  text-align: center;
+  margin: 25pt;
+}
+
+.Found-solutions-list ul {
+  list-style-type: none;
+  padding-left: 0; /* Removed default padding */
+}
+
+.Found-solutions-list li {
+  font-size: 18pt;  /* Larger font for better visibility */
+  line-height: 22pt; /* Increased line height */
+  margin-bottom: 5pt;  /* Added spacing between each list item */
+}

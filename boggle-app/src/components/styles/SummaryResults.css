@@ -1,0 +1,43 @@
+/* SummaryResults.css */
+.Summary {
+  text-align: center;
+  margin: 30px auto;
+  width: 80%;  /* Set width for better layout */
+  max-width: 500px;  /* Ensure the summary doesn't stretch too wide */
+  padding: 20px;
+  border: 2px solid #ccc;  /* Added border for visual distinction */
+  border-radius: 10px;  /* Rounded corners for a smoother look */
+  background-color: #f9f9f9;  /* Light background color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Subtle shadow for a nice effect */
+}
+
+.Summary h2 {
+  font-size: 24pt;  /* Larger header size for emphasis */
+  margin-bottom: 15px;  /* Space below header */
+}
+
+.Summary div {
+  margin-bottom: 15px;  /* Space between summary items */
+}
+
+.Summary li {
+  font-size: 18pt;  /* Adjusted font size for better readability */
+  line-height: 25pt;  /* Increased line height for clear separation */
+  margin-bottom: 10px;  /* Space between items */
+  list-style-type: none;  /* Remove default list bullets */
+}
+
+@media (max-width: 768px) {
+  .Summary {
+    width: 100%;  /* Make it full width on smaller screens */
+    max-width: 400px;  /* Limit width on mobile for better spacing */
+  }
+
+  .Summary h2 {
+    font-size: 20pt;  /* Slightly smaller header size on mobile */
+  }
+
+  .Summary li {
+    font-size: 16pt;  /* Adjust font size for mobile */
+  }
+}

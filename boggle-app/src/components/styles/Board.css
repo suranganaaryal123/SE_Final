@@ -1,0 +1,26 @@
+/* .Board-div {
+  width: 700px;
+  margin: auto;
+  font-size: 40pt;
+}
+
+.Tile {
+  text-align: center;
+  line-height: 50pt;
+  vertical-align: middle;
+} */
+.Board-div {
+  width: 90%;   /* Increased width for better responsiveness */
+  margin: auto;
+  font-size: 20pt; /* Reduced font size for better readability */
+}
+
+.Tile {
+  text-align: center;
+  line-height: 50pt;
+  vertical-align: middle;
+  font-size: 14pt; /* Adjusted font size for letters */
+  padding: 10px;  /* Added padding for better spacing */
+  min-height: 50px; /* Added a minimum height for each tile */
+}
+

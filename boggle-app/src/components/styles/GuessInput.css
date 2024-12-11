@@ -1,0 +1,24 @@
+/* .Guess-input {
+  border: 15px solid grey;
+  margin: 30px;
+  text-align: center;
+  padding: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 10;
+} */
+.Guess-input {
+  border: 2px solid grey; /* Reduced border thickness */
+  margin: 30px auto;  /* Centered input box */
+  text-align: center;
+  padding: 20px;   /* Reduced padding for cleaner look */
+  width: 80%;  /* Adjusted width to fit better */
+  max-width: 400px; /* Added a max-width for responsiveness */
+  box-sizing: border-box;  /* Include padding in the width calculation */
+  font-size: 16pt;  /* Adjusted font size for input */
+}
+
+.Guess-input div {
+  font-size: 18pt;  /* Adjusted font size for feedback */
+  margin-bottom: 20px;  /* Added margin for spacing */
+}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { db, collection, addDoc, getDocs, query, orderBy, limit } from './firebase';
 import Board from './components/Board.js';
 import GuessInput from './components/GuessInput.js';
 import FoundSolutions from './components/FoundSolutions.js';
@@ -9,56 +10,93 @@ import logo from './logo.svg';
 import './App.css';
 import { GAME_STATE } from './components/GameState.js';
 
-
 function App() {
   const obj = require('./Boggle_Solutions_Endpoint.json');
   const [currentUser, setCurrentUser] = useState(null);
-  const [allSolutions, setAllSolutions] = useState([]);  // solutions from solver
-  const [foundSolutions, setFoundSolutions] = useState([]);  // found by user
-  const [gameState, setGameState] = useState(GAME_STATE.BEFORE); // Just an enumerator for the three states see below
-  const [grid, setGrid] = useState([]);   // the grid
-  const [totalTime, setTotalTime] = useState(0);  // total time elapsed
-  const [size, setSize] = useState(3);  // selected grid size
-  const [game, setGame] = useState({}); // used to hold the MOCK REST ENDPOINT DATA 
-  const myMap = useMemo(() => new Map(Object.entries(obj)), [obj]); // cache this value so that it doesn't have to be refreshed every time we visit the page.
+  const [allSolutions, setAllSolutions] = useState([]);
+  const [foundSolutions, setFoundSolutions] = useState([]);
+  const [gameState, setGameState] = useState(GAME_STATE.BEFORE);
+  const [grid, setGrid] = useState([]);
+  const [totalTime, setTotalTime] = useState(0);
+  const [size, setSize] = useState(3);
+  const [game, setGame] = useState({});
+  const [leaderboard, setLeaderboard] = useState([]);
 
-  // useEffect will trigger when the array items in the second argument are
-  // updated so whenever grid is updated, we will recompute the solutions
+  const myMap = useMemo(() => new Map(Object.entries(obj)), [obj]);
+
   useEffect(() => {
     let tmpAllSolutions = game.solutions;
     setAllSolutions(tmpAllSolutions);
   }, [grid, game]);
 
-  // This will run when gameState changes.
-  // When a new game is started, generate a new random grid and reset solutions
   useEffect(() => {
     if (gameState === GAME_STATE.IN_PROGRESS) {
-      const g = myMap.get(size.toString());  // THIS WILL BE REPLACED WITH REST ENDPOINT in Assignment #5
+      const g = myMap.get(size.toString());
       setGame(g);
       setGrid(g.grid);
       setFoundSolutions([]);
     }
   }, [gameState, size, myMap]);
 
+  // Fetch leaderboard when the component mounts or game ends
+  useEffect(() => {
+    const fetchLeaderboard = async () => {
+      const q = query(collection(db, "leaderboard"), orderBy("score", "desc"), limit(5));
+      const querySnapshot = await getDocs(q);
+      const leaderboardData = querySnapshot.docs.map(doc => doc.data());
+      setLeaderboard(leaderboardData);
+    };
+
+    fetchLeaderboard();
+  }, [db, gameState]);
+
   function correctAnswerFound(answer) {
     console.log("New correct answer:" + answer);
     setFoundSolutions([...foundSolutions, answer]);
   }
 
+  // Calculate score based on the found solutions
+  function calculateScore() {
+    return foundSolutions.length;
+  }
+
+  // Save score to Firestore
+  async function saveScore() {
+    if (currentUser) {
+      const score = calculateScore();
+      try {
+        await addDoc(collection(db, "leaderboard"), {
+          username: currentUser.displayName,
+          score,
+          timestamp: new Date(),
+        });
+        console.log("Score saved successfully!");
+      } catch (error) {
+        console.log("Error saving score: ", error);
+      }
+    }
+  }
+
+  // Use effect to save score when game ends
+  useEffect(() => {
+    if (gameState === GAME_STATE.ENDED) {
+      saveScore();
+    }
+  }, [gameState, currentUser, foundSolutions]);
+
   return (
     <div className="App">
       <img src={logo} width="25%" height="25%" className="logo" alt="Bison Boggle Logo" />
-
+      
       {currentUser ? (
         <>
           <LogoutButton setCurrentUser={setCurrentUser} />
-
           <ToggleGameState gameState={gameState}
                            setGameState={(state) => setGameState(state)} 
                            setSize={(state) => setSize(state)}
                            setTotalTime={(state) => setTotalTime(state)} />
 
-          {gameState === GAME_STATE.IN_PROGRESS &&
+          {gameState === GAME_STATE.IN_PROGRESS && 
             <div>
               <Board board={grid} />
               <GuessInput allSolutions={allSolutions}
@@ -72,11 +110,9 @@ function App() {
             <div>
               <Board board={grid} />
               <SummaryResults words={foundSolutions} totalTime={totalTime} />
-              
-              {/* Display missed words */}
               <FoundSolutions 
-                headerText="Missed Words [wordsize > 3]:"
-                words={allSolutions.filter(word => word.length > 3 && !foundSolutions.includes(word))}
+                headerText="Missed Words [wordsize > 3]:" 
+                words={allSolutions.filter(word => word.length > 3 && !foundSolutions.includes(word))} 
               />
             </div>
           }
@@ -84,6 +120,17 @@ function App() {
       ) : (
         <LoginButton setCurrentUser={(user) => setCurrentUser(user)} />
       )}
+
+      <h2>Leaderboard</h2>
+      <ul>
+        {leaderboard.length > 0 ? (
+          leaderboard.map((entry, index) => (
+            <li key={index}>{entry.username}: {entry.score}</li>
+          ))
+        ) : (
+          <p>No leaderboard data available.</p>
+        )}
+      </ul>
     </div>
   );
 }
